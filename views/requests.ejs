@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Requests</title>
+    <link rel="stylesheet" href="/public/assets/request.css">
+</head>
+<body>
+
+<!-- This is  start of the navbar -->
+<div class="topnav">
+  <a id="title" href="/">VIT Pro Bud</a>
+  <a class="alig" href="/projects">Explore</a>
+  <a class="alig" href="/about">About</a>
+  <a class="alig" href="/contact">Contact</a>
+  <a class="alig" href="/gallery">Gallery</a>
+  <%  if(!user){%>
+  <a class="alig" href="/register">Register</a>
+  <a class="alig" href="/login">Login</a>
+  <%  }else{ %>
+      <a class="alig" href="/logout">Logout</a>
+
+  <a href="/userprofile"><img src="/<%= user.img.path %>" alt=""></a>
+  <%  } %>
+</div>
+<!-- navbar end -->
+    
+    <!-- list of application of projects -->
+      <section>
+        <div class="header">
+          
+          <div class="element1 abc">
+            <p>Project Title</p>
+    
+          </div>
+          <div class="element2 abc">
+            <p class="created">Created By</p>
+    
+          </div>
+          <div class="element3 abc">
+            <p>Status</p>
+    
+          </div>
+    
+          
+      </div>
+    
+      
+            <!-- request -->
+            <% var flag=0;%>
+            <%appliedprojects.forEach(function(project){%>
+          <div class="header">
+            
+            <div class="element1 abc element">
+              <p><%=project.title%></p>
+      
+            </div>
+            <div class="element2 abc element">
+              <p class="created"><%=project.owner.username%></p>
+      
+            </div>
+            <div class="element3 abc">
+                <p class="created"><%project.team.forEach(function(member){ console.log(member+"hello");%>
+                  <% if(user._id.equals(member)){%>
+                  <% flag=1;%>
+                <%}});%>
+              <%if(flag===1){%>
+                You are in Team
+             <% flag=0;}else{%>
+                 pending...
+              <%}%></p>
+            </div>
+            <div class="element3 abc">
+              <form action="/request/<%=project._id%>/delete" method="post">
+                <button style="margin-left: 6rem;"class="btn" type="submit">Cancel</button>
+              </form>
+            </div>
+        </div>
+      <!-- request -->
+
+
+      <%})%>
+      
+
+
+      </section>
+
+
+       <!-- footer start -->
+        <div class="footer">
+            <p>Copyright &#169; 2021 Kartik Khanna</p>
+        </div>
+        <!-- footer end -->
+     
+</body>
+</html>
